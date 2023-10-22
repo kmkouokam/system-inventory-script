@@ -24,9 +24,9 @@ free -m
 #free -t
 #echo "or"
 
-#cat /proc/meminfo | grep head -12
+#cat /proc/meminfo |  head -3
 sleep 3
-echo "The size of the harddrive is:"
+echo "The size of the hard drive is:"
 sleep 3
 # fdisk -l
 sleep 3
