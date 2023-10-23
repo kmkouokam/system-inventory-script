@@ -2,41 +2,74 @@
 
 #Description: Complete server inventory script
 #Author:Ernestine Motouom; Email: kmkouokam@yahoo.com
-#Date: 12/11/2021
-
-
-
+#Date: 10/22/2023
+echo "#######################################################"
 echo "The OS runnung is:"
+echo "#######################################################
 sleep 4
-cat /etc/*release | head -2
-echo "The version is:"
+OP_SYTEM_VERSION=$(cat /etc/*release | head -2)
+
+echo "The version is:" $OP_SYTEM_VERSION
+
 sleep 4
 cat /etc/*release | head -1
 
+echo " ########################################################"
 sleep 3
-echo "The size of the memory is:"
+echo "The size of free RAM is:"
+echo "########################################################"
 sleep 3
-echo
-free -m
+
+FREERAM=$(free -m | grep Mem | awk '{print $4}')
+
+echo "Available free RAM" is $FREERAM MB
+#free -m
 #echo "or"
 #free -g
 #echo "or"
 #free -t
 #echo "or"
+echo " Total Memory size"
 
-#cat /proc/meminfo | grep head -12
+TOTALRAM=$(free -m | grep Mem | awk '{print $2}')
+
+echo "##########################################################"
+echo "The total RAM is $TOTALRAM MB"
+
+echo "The used Memory size"
+
+USEDRAM=$(free -m | grep Mem | awk '{print $3}')
+
+echo "############################################################"
+
+#cat /proc/meminfo |  head -3
 sleep 3
-echo "The size of the harddrive is:"
+
+echo "#############################################################"
+echo "The root free partition size is:"
+echo "#############################################################"
 sleep 3
+ROOTFREE=$(sudo fdisk -l | tail -2)
+echo "free ROOT Partition is ROOTFREE"
 # fdisk -l
 sleep 3
-lsblk
-sleep 3
 
+echo "##############################################################"
+echo "Hard Drive info"
+HARDDRIVE=$(lsblk)
+#lsblk
+
+echo "Hard Drive info id $HARDDRIVE"
+sleep 3
+echo "#######################################################"
 echo "The number of CPU is:"
-
+echo "#######################################################"
 sleep 3
-iostat | head -1 | awk '{print $6, $7}'
+
+NUMCPU=$(iostat | head -1 | awk '{print $6, $7}')
+#iostat | head -1 | awk '{print $6, $7}'
+
+echo "Number of CPU is $NUMCPU"
 sleep 3
 
 #cat /proc/cpuinfo
@@ -114,7 +147,7 @@ echo "or"
 #ifconfig | grep ether | head -2 | tail -1 | awk '{print $2}'
 echo "how do you set the hostname"
 sleep 3
- echo "The command is:hostnamectl set-hostname [hostNmane]"
+echo "The command is:hostnamectl set-hostname [hostNmane]"
 
 echo "*****Job well done*****"
 echo "*****Thank You*****"
